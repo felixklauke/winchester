@@ -14,18 +14,14 @@ DFA::DFA(std::set<State> states, std::set<char> alphabet, const std::map<State, 
 bool DFA::ProcessInput(std::string input) {
     Reset();
 
-    std::string::iterator iterator = input.begin();
-
-    for (int i = 0; i < input.length(); ++i) {
+    for (char &c : input) {
         std::set<Transition> currentTransitions = this->stateTransitions.at(currentState);
 
         for (const Transition &transition : currentTransitions) {
-            if (transition.IsAcceptingInput(reinterpret_cast<char>(iterator.base()))) {
+            if (transition.IsAcceptingInput(c)) {
                 currentState = transition.ToState();
             }
         }
-
-        iterator++;
     }
 
     return currentState.IsFinalState();
