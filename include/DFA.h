@@ -12,14 +12,19 @@
 
 class DFA {
 public:
-    explicit DFA(std::set<State> states, const std::set<char> &alphabet, std::map<State, Transition> stateTransitions);
+    DFA(std::set<State> states, std::set<char> alphabet, std::map<State, Transition> stateTransitions,
+        const State &startState);
 
     bool ProcessInput(std::string input);
+
+    void Reset();
 
 private:
     std::set<State> states;
     std::set<char> alphabet;
     std::map<State, Transition> stateTransitions;
+    State startState;
+    State currentState;
 };
 
 #endif //WINCHESTER_DFA_H
