@@ -10,7 +10,7 @@
 
 class DFA {
 public:
-    explicit DFA(const std::set<char> &alphabet, std::set<State> states);
+    explicit DFA(std::set<State> states, const std::set<char> &alphabet);
 
 private:
     std::set<State> states;
