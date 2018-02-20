@@ -9,3 +9,7 @@ State::State(int id, const std::string &label, bool isFinal) : isFinal(isFinal) 
     this->label = label;
     this->isFinal = isFinal;
 }
+
+bool State::isFinalState() {
+    return isFinal;
+}

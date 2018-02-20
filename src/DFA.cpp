@@ -13,7 +13,7 @@ DFA::DFA(std::set<State> states, std::set<char> alphabet, std::map<State, Transi
 
 bool DFA::ProcessInput(std::string input) {
     Reset();
-    return false;
+    return currentState.isFinalState();
 }
 
 void DFA::Reset() {
