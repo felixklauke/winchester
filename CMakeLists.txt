@@ -3,4 +3,7 @@ project(winchester)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(winchester main.cpp src/DFA.cpp include/DFA.h)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/src)
+
+add_executable(winchester main.cpp src/DFA.cpp include/DFA.h src/State.cpp include/State.h)
