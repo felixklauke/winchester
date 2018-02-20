@@ -9,3 +9,11 @@ Transition::Transition(char input, State toState)
     this->input = input;
     this->toState = toState;
 }
+
+bool Transition::IsAcceptingInput(char actualInput)const {
+    return input == actualInput;
+}
+
+State Transition::ToState()const {
+    return toState;
+}

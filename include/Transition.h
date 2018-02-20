@@ -12,6 +12,10 @@ class Transition {
 public:
     Transition(char input, State toState);
 
+    bool IsAcceptingInput(char actualInput)const;
+
+    State ToState()const;
+
 private:
     State toState;
     char input;
