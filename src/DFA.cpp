@@ -5,7 +5,8 @@
 #include <set>
 #include <DFA.h>
 
-DFA::DFA(std::set<State> states, const std::set<char> &alphabet) : alphabet(alphabet), states(states) {
+DFA::DFA(std::set<State> states, const std::set<char> &alphabet, std::map<State, Transition> stateTransitions)
+        : alphabet(alphabet), states(states), stateTransitions(stateTransitions) {
     this->alphabet = alphabet;
     this->states = states;
 }
