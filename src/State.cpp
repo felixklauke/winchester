@@ -10,6 +10,6 @@ State::State(int id, const std::string &label, bool isFinal) : isFinal(isFinal) 
     this->isFinal = isFinal;
 }
 
-bool State::isFinalState() {
+bool State::IsFinalState() {
     return isFinal;
 }
