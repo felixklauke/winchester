@@ -12,6 +12,8 @@ class DFA {
 public:
     explicit DFA(std::set<State> states, const std::set<char> &alphabet);
 
+    bool ProcessInput(std::string input);
+
 private:
     std::set<State> states;
     std::set<char> alphabet;
