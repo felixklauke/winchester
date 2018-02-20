@@ -12,17 +12,19 @@
 
 class DFA {
 public:
-    DFA(std::set<State> states, std::set<char> alphabet, std::map<State, Transition> stateTransitions,
+    DFA(std::set<State> states, std::set<char> alphabet, const std::map<State, std::set<Transition>> &stateTransitions,
         const State &startState);
 
     bool ProcessInput(std::string input);
 
     void Reset();
 
+    void AddTransition(const State &fromState, Transition transition);
+
 private:
     std::set<State> states;
     std::set<char> alphabet;
-    std::map<State, Transition> stateTransitions;
+    std::map<State, std::set<Transition>> stateTransitions;
     State startState;
     State currentState;
 };
