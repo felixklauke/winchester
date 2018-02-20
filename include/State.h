@@ -9,11 +9,12 @@
 
 class State {
 public:
-    State(int id, const std::string &label);
+    State(int id, const std::string &label, bool isFinal);
 
 private:
     int id;
     std::string label;
+    bool isFinal;
 };
 
 
