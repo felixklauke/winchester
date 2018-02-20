@@ -6,14 +6,12 @@
 
 Transition::Transition(char input, State toState)
         : input(input), toState(toState) {
-    this->input = input;
-    this->toState = toState;
 }
 
-bool Transition::IsAcceptingInput(char actualInput)const {
+bool Transition::IsAcceptingInput(char actualInput) const {
     return input == actualInput;
 }
 
-State Transition::ToState()const {
+State Transition::ToState() const {
     return toState;
 }

@@ -5,9 +5,9 @@
 #include <set>
 #include <DFA.h>
 
-DFA::DFA(std::set<State> states, std::set<char> alphabet, const std::map<State, std::set<Transition>> &stateTransitions,
-         const State &startState)
-        : alphabet(std::move(alphabet)), states(std::move(states)), stateTransitions(stateTransitions),
+DFA::DFA(std::set<State> states, std::set<char> alphabet, std::map<State, std::set<Transition>> stateTransitions,
+         State startState)
+        : alphabet(std::move(alphabet)), states(std::move(states)), stateTransitions(std::move(stateTransitions)),
           currentState(startState), startState(startState) {
 }
 
@@ -15,7 +15,7 @@ bool DFA::ProcessInput(std::string input) {
     Reset();
 
     for (char &c : input) {
-        std::set<Transition> currentTransitions = this->stateTransitions.at(currentState);
+        auto currentTransitions = stateTransitions.at(this->currentState);
 
         for (const Transition &transition : currentTransitions) {
             if (transition.IsAcceptingInput(c)) {
@@ -33,9 +33,9 @@ void DFA::Reset() {
 
 void DFA::AddTransition(const State &fromState, Transition transition) {
     if (stateTransitions.count(fromState) == 0) {
-        stateTransitions.insert(std::pair(fromState, std::set()));
+        stateTransitions.insert(std::pair<State, std::set<Transition>>(fromState, std::set<Transition>()));
     }
 
-    std::set<Transition> transitions = stateTransitions.at(fromState);
+    auto transitions = stateTransitions.at(fromState);
     transitions.insert(transition);
 }
