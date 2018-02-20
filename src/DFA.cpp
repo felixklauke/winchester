@@ -32,6 +32,10 @@ void DFA::Reset() {
 }
 
 void DFA::AddTransition(const State &fromState, Transition transition) {
+    if (stateTransitions.count(fromState) == 0) {
+        stateTransitions.insert(std::pair(fromState, std::set()));
+    }
+
     std::set<Transition> transitions = stateTransitions.at(fromState);
     transitions.insert(transition);
 }
