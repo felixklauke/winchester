@@ -5,9 +5,9 @@
 #include <set>
 #include <DFA.h>
 
-DFA::DFA(std::set<State> states, std::set<char> alphabet, std::map<State, Transition> stateTransitions,
+DFA::DFA(std::set<State> states, std::set<char> alphabet, const std::map<State, std::set<Transition>> &stateTransitions,
          const State &startState)
-        : alphabet(std::move(alphabet)), states(std::move(states)), stateTransitions(std::move(stateTransitions)),
+        : alphabet(std::move(alphabet)), states(std::move(states)), stateTransitions(stateTransitions),
           currentState(startState), startState(startState) {
 }
 
@@ -18,4 +18,9 @@ bool DFA::ProcessInput(std::string input) {
 
 void DFA::Reset() {
     currentState = startState;
+}
+
+void DFA::AddTransition(const State &fromState, Transition transition) {
+    std::set<Transition> transitions = stateTransitions.at(fromState);
+    transitions.insert(transition);
 }
