@@ -9,3 +9,7 @@ DFA::DFA(std::set<State> states, const std::set<char> &alphabet) : alphabet(alph
     this->alphabet = alphabet;
     this->states = states;
 }
+
+bool DFA::ProcessInput(std::string input) {
+    return false;
+}
