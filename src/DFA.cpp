@@ -23,6 +23,13 @@ bool DFA::ProcessInput(std::string input) {
         return false;
     }
 
+    std::cout << "Checking for sufficient final states (min 1)." << std::endl;
+    bool sufficientFinalStates = ValidateSufficientFinalStates();
+    if (!sufficientFinalStates) {
+        std::cout << "A DFA has to have at least one final state!" << std::endl;
+        return false;
+    }
+
     for (char &c : input) {
         std::cout << "Working on " << c << " with current state " << currentState.GetLabel() << std::endl;
 
@@ -87,4 +94,14 @@ bool DFA::ValidateTransitionComplete() {
     }
 
     return true;
+}
+
+bool DFA::ValidateSufficientFinalStates() {
+    for (const State &state : states) {
+        if (state.IsFinalState()) {
+            return true;
+        }
+    }
+
+    return false;
 }
