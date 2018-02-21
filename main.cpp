@@ -18,7 +18,7 @@ int main() {
 
     auto transitions = std::map<State, std::set<Transition>>();
 
-    auto dfa = DFA(states, alphabet, transitions, thirdState);
+    auto dfa = DFA(states, alphabet, transitions, startState);
     dfa.AddTransition(startState, Transition('a', secondState));
     dfa.AddTransition(startState, Transition('b', startState));
     dfa.AddTransition(startState, Transition('c', startState));
@@ -31,5 +31,6 @@ int main() {
     dfa.AddTransition(thirdState, Transition('b', thirdState));
     dfa.AddTransition(thirdState, Transition('c', thirdState));
 
-    std::cout << "Accepted: " << dfa.ProcessInput("ab") << std::endl;
+    auto accepted = dfa.ProcessInput("abaaaacab");
+    std::cout << "Accepted: " << accepted << std::endl;
 }

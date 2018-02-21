@@ -7,9 +7,16 @@
 State::State(int id, const std::string &label, bool isFinal) : isFinal(isFinal) {
     this->id = id;
     this->label = label;
-    this->isFinal = isFinal;
 }
 
 bool State::IsFinalState() {
     return isFinal;
+}
+
+bool operator<(const State &left, const State &right) {
+    return left.id < right.id;
+}
+
+std::string State::GetLabel() const {
+    return label;
 }

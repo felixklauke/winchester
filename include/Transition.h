@@ -16,6 +16,8 @@ public:
 
     State ToState()const;
 
+    friend bool operator<(const Transition &left, const Transition &right);
+
 private:
     State toState;
     char input;
