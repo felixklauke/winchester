@@ -27,6 +27,8 @@ public:
 
     bool ValidateSufficientFinalStates();
 
+    void DeleteUnreachableStates();
+
 private:
     std::set<State> states;
     std::set<char> alphabet;

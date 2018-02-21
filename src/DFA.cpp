@@ -115,3 +115,25 @@ DFA DFA::BuildComplement() {
 
     return DFA(complementStates, alphabet, stateTransitions, startState);
 }
+
+void DFA::DeleteUnreachableStates() {
+    for (const State &state : states) {
+        if (state.GetId() == startState.GetId()) {
+            continue;
+        }
+
+        bool reachable = false;
+        auto &currentTransitions = stateTransitions.at(state);
+        for (const Transition &currentTransition : currentTransitions) {
+            if (currentTransition.ToState().GetId() == state.GetId()) {
+                reachable = true;
+            }
+        }
+
+        if (!reachable) {
+            std::cout << "The state " << state.GetLabel() << " is unreachable and gets deleted." << std::endl;
+            states.erase(state);
+            stateTransitions.erase(state);
+        }
+    }
+}
