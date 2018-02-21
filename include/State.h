@@ -11,7 +11,7 @@ class State {
 public:
     State(int id, const std::string &label, bool isFinal);
 
-    bool IsFinalState();
+    bool IsFinalState() const;
 
     std::string GetLabel() const;
 
