@@ -11,11 +11,13 @@ class State {
 public:
     State(int id, const std::string &label, bool isFinal);
 
-    bool IsFinalState() const;
+    bool IsFinalState()const;
 
     std::string GetLabel() const;
 
     friend bool operator<(const State &left, const State &right);
+
+    int GetId()const;
 
 private:
     int id;

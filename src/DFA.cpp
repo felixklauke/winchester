@@ -105,3 +105,13 @@ bool DFA::ValidateSufficientFinalStates() {
 
     return false;
 }
+
+DFA DFA::BuildComplement() {
+    auto complementStates = std::set<State>();
+
+    for (const State &state : states) {
+        complementStates.insert(State(state.GetId(), state.GetLabel(), !state.IsFinalState()));
+    }
+
+    return DFA(complementStates, alphabet, stateTransitions, startState);
+}
