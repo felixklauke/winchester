@@ -7,14 +7,30 @@
 
 #include <set>
 #include <State.h>
+#include <map>
+#include <Transition.h>
 
 class DFA {
 public:
-    explicit DFA(const std::set<char> &alphabet, std::set<State> states);
+    DFA(std::set<State> states, std::set<char> alphabet, std::map<State, std::set<Transition>> stateTransitions,
+        State startState);
 
+    bool ProcessInput(std::string input);
+
+    void Reset();
+
+    void AddTransition(const State &fromState, Transition transition);
+
+    bool ValidateTransitionComplete();
+
+    bool ValidateSufficientFinalStates();
+  
 private:
     std::set<State> states;
     std::set<char> alphabet;
+    std::map<State, std::set<Transition>> stateTransitions;
+    State startState;
+    State currentState;
 };
 
 #endif //WINCHESTER_DFA_H
