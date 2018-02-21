@@ -21,6 +21,8 @@ public:
 
     void AddTransition(const State &fromState, Transition transition);
 
+    bool ValidateTransitionComplete();
+
 private:
     std::set<State> states;
     std::set<char> alphabet;
