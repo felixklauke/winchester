@@ -5,15 +5,17 @@
 #include "Transition.h"
 
 Transition::Transition(char input, State toState)
-        : input(input), toState(toState) {
-    this->input = input;
-    this->toState = toState;
+        : input(input), toState(std::move(toState)) {
 }
 
-bool Transition::IsAcceptingInput(char actualInput)const {
+bool Transition::IsAcceptingInput(char actualInput) const {
     return input == actualInput;
 }
 
-State Transition::ToState()const {
+State Transition::ToState() const {
     return toState;
+}
+
+bool operator<(const Transition &left, const Transition &right) {
+    return left.input < right.input;
 }

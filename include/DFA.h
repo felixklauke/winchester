@@ -12,8 +12,8 @@
 
 class DFA {
 public:
-    DFA(std::set<State> states, std::set<char> alphabet, const std::map<State, std::set<Transition>> &stateTransitions,
-        const State &startState);
+    DFA(std::set<State> states, std::set<char> alphabet, std::map<State, std::set<Transition>> stateTransitions,
+        State startState);
 
     bool ProcessInput(std::string input);
 

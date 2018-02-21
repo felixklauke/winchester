@@ -13,6 +13,10 @@ public:
 
     bool IsFinalState();
 
+    std::string GetLabel() const;
+
+    friend bool operator<(const State &left, const State &right);
+
 private:
     int id;
     std::string label;
