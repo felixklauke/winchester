@@ -13,7 +13,22 @@ DFA::DFA(std::set<State> states, std::set<char> alphabet, std::map<State, std::s
 }
 
 bool DFA::ProcessInput(std::string input) {
+    std::cout << "Resetting current state." << std::endl;
     Reset();
+
+    std::cout << "Checking state machine for transition completeness." << std::endl;
+    auto transitionComplete = ValidateTransitionComplete();
+    if (!transitionComplete) {
+        std::cout << "Warning: The provided automaton is not transition complete!" << std::endl;
+        return false;
+    }
+
+    std::cout << "Checking for sufficient final states (min 1)." << std::endl;
+    bool sufficientFinalStates = ValidateSufficientFinalStates();
+    if (!sufficientFinalStates) {
+        std::cout << "A DFA has to have at least one final state!" << std::endl;
+        return false;
+    }
 
     for (char &c : input) {
         std::cout << "Working on " << c << " with current state " << currentState.GetLabel() << std::endl;
@@ -45,8 +60,50 @@ void DFA::AddTransition(const State &fromState, Transition transition) {
 
     auto &transitions = stateTransitions.at(fromState);
     transitions.insert(transition);
+}
 
-    std::cout << "LOL: " << transitions.size() << std::endl;
+bool DFA::ValidateTransitionComplete() {
+    for (const State &state : states) {
+        auto &currentTransitions = stateTransitions.at(state);
+
+        std::cout << "Checking transition completeness of state " << state.GetLabel() << std::endl;
+
+        if (currentTransitions.size() != alphabet.size()) {
+            std::cout << "State " << state.GetLabel() << " doesn't have enough transitions ("
+                      << currentTransitions.size() << " of " << alphabet.size() << ")." << std::endl;
+            return false;
+        }
+
+        for (const char &character : alphabet) {
+            bool accepts = false;
+
+            std::cout << "Checking for transition from " << state.GetLabel() << " With " << character << std::endl;
+
+            for (const Transition &transition : currentTransitions) {
+                if (transition.IsAcceptingInput(character)) {
+                    accepts = true;
+                }
+            }
+
+            if (!accepts) {
+                std::cout << "The state " << state.GetLabel() + " doesn't have a transition for letter " << character
+                          << "." << std::endl;
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool DFA::ValidateSufficientFinalStates() {
+    for (const State &state : states) {
+        if (state.IsFinalState()) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 DFA DFA::BuildComplement() {

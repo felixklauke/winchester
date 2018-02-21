@@ -23,6 +23,10 @@ public:
 
     DFA BuildComplement();
 
+    bool ValidateTransitionComplete();
+
+    bool ValidateSufficientFinalStates();
+
 private:
     std::set<State> states;
     std::set<char> alphabet;
