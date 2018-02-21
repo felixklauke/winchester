@@ -48,3 +48,13 @@ void DFA::AddTransition(const State &fromState, Transition transition) {
 
     std::cout << "LOL: " << transitions.size() << std::endl;
 }
+
+DFA DFA::BuildComplement() {
+    auto complementStates = std::set<State>();
+
+    for (const State &state : states) {
+        complementStates.insert(State(state.GetId(), state.GetLabel(), !state.IsFinalState()));
+    }
+
+    return DFA(complementStates, alphabet, stateTransitions, startState);
+}
