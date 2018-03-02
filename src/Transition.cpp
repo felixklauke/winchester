@@ -19,3 +19,7 @@ State Transition::ToState() const {
 bool operator<(const Transition &left, const Transition &right) {
     return left.input < right.input;
 }
+
+char Transition::GetInput() const {
+    return input;
+}

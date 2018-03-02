@@ -11,6 +11,7 @@
 #include <Transition.h>
 
 class DFA {
+
 public:
     DFA(std::set<State> states, std::set<char> alphabet, std::map<State, std::set<Transition>> stateTransitions,
         State startState);
@@ -27,7 +28,11 @@ public:
 
     bool ValidateSufficientFinalStates();
 
-    void DeleteUnreachableStates();
+    DFA *Minimize();
+
+    void Visualize();
+
+    const std::string EPSILON = "ɛ";
 
 private:
     std::set<State> states;
@@ -35,6 +40,8 @@ private:
     std::map<State, std::set<Transition>> stateTransitions;
     State startState;
     State currentState;
+
+    void DeleteUnreachableStates();
 };
 
 #endif //WINCHESTER_DFA_H

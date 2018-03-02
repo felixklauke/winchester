@@ -6,10 +6,12 @@ int main() {
     auto startState = State(0, "q0", false);
     auto secondState = State(1, "q1", false);
     auto thirdState = State(2, "q2", true);
+    auto fourthState = State(3, "q3", false);
 
     states.insert(startState);
     states.insert(secondState);
     states.insert(thirdState);
+    states.insert(fourthState);
 
     auto alphabet = std::set<char>();
     alphabet.insert('a');
@@ -31,6 +33,10 @@ int main() {
     dfa.AddTransition(thirdState, Transition('b', thirdState));
     dfa.AddTransition(thirdState, Transition('c', thirdState));
 
-    auto accepted = dfa.ProcessInput("abaaaacab");
+    dfa.AddTransition(fourthState, Transition('a', fourthState));
+    dfa.AddTransition(fourthState, Transition('b', thirdState));
+    dfa.AddTransition(fourthState, Transition('c', secondState));
+
+    auto accepted = dfa.ProcessInput("aa");
     std::cout << "Accepted: " << accepted << std::endl;
 }
