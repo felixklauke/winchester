@@ -116,24 +116,106 @@ DFA DFA::BuildComplement() {
     return DFA(complementStates, alphabet, stateTransitions, startState);
 }
 
-void DFA::DeleteUnreachableStates() {
+void DFA::Visualize() {
+    std::cout << "States: " << std::endl;
     for (const State &state : states) {
-        if (state.GetId() == startState.GetId()) {
-            continue;
-        }
+        std::cout << "[" << state.GetId() << "] " << state.GetLabel() << std::endl;
+    }
 
-        bool reachable = false;
+    std::cout << "Transitions: " << std::endl;
+    for (const State &state : states) {
         auto &currentTransitions = stateTransitions.at(state);
-        for (const Transition &currentTransition : currentTransitions) {
-            if (currentTransition.ToState().GetId() == state.GetId()) {
-                reachable = true;
-            }
-        }
 
-        if (!reachable) {
-            std::cout << "The state " << state.GetLabel() << " is unreachable and gets deleted." << std::endl;
-            states.erase(state);
-            stateTransitions.erase(state);
+        for (const Transition &currentTransition : currentTransitions) {
+            std::cout << state.GetLabel() << " - " << currentTransition.GetInput() << " -> "
+                      << currentTransition.ToState().GetLabel() << std::endl;
         }
     }
 }
+
+DFA *DFA::Minimize() {
+    DeleteUnreachableStates();
+
+    /**
+     * States: { q0, q1, q2, q3, q4 }
+     *
+     *
+     *
+     *
+     *
+     * q0
+     *
+     * q1
+     *
+     * q2
+     *
+     * q3
+     *
+     * q4
+     *
+     *      q0    q1    q2    q3
+     *
+     */
+
+    std::string table[states.size() - 1][states.size() - 1];
+
+    // Compare final and non final states
+    for (int i = 0; i < states.size() - 1; ++i) {
+        auto currentStateLeft = *std::next(states.begin(), i);
+
+        for (int j = 0; j < i; ++j) {
+            auto currentStateRight = *std::next(states.begin(), j);
+
+            if (currentStateLeft.IsFinalState() != currentStateRight.IsFinalState()) {
+                table[i][j] = EPSILON;
+            }
+        }
+    }
+
+    // Find equivalent states
+    bool changed = false;
+
+    do {
+        changed = false;
+
+        // a, b, c
+
+    } while (changed);
+
+    return this;
+}
+
+void DFA::DeleteUnreachableStates() {
+    bool changed;
+
+    do {
+        changed = false;
+
+        for (const State &state : states) {
+            bool currentStateHasIncoming = false;
+
+            for (const State &currentOutgoingState : states) {
+                if (currentOutgoingState.GetId() == state.GetId()) {
+                    continue;
+                }
+
+                auto &currentTransitions = stateTransitions.at(currentOutgoingState);
+
+                for (const Transition &transition : currentTransitions) {
+                    if (transition.ToState().GetId() == state.GetId()) {
+                        currentStateHasIncoming = true;
+                    }
+                }
+            }
+
+            if (!currentStateHasIncoming) {
+                stateTransitions.erase(state);
+                states.erase(state);
+
+                changed = true;
+            }
+
+        }
+    } while (changed);
+}
+
