@@ -2,7 +2,7 @@
 Fast and effective finite automaton software that can simulate acceptance tests in a state machine style.
 
 # Example
-
+_Creation and simple word test:_
 ```cpp
 auto states = std::set<State>();
 auto startState = State(0, "q0", false);
@@ -36,3 +36,9 @@ dfa.AddTransition(thirdState, Transition('c', thirdState));
 auto accepted = dfa.ProcessInput("abaaaacab");
 std::cout << "Accepted: " << accepted << std::endl;
 ```
+
+_Create the complement (Accepts all words the former language didn't accept and vice versa):_
+```cpp
+auto complement = dfa.BuildComplement();
+```
+
