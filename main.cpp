@@ -33,4 +33,6 @@ int main() {
 
     auto accepted = dfa.ProcessInput("abaaaacab");
     std::cout << "Accepted: " << accepted << std::endl;
+
+    auto complement = dfa.BuildComplement();
 }
